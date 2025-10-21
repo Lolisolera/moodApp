@@ -1,38 +1,38 @@
+### Java / Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+**/src/main/**/target/
+**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+.idea/
 *.iml
+*.iws
 *.ipr
 
+### Logs & Temporary files ###
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
 ### Eclipse ###
-.apt_generated
 .classpath
-.factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
 ### NetBeans ###
 /nbproject/private/
-/nbbuild/
+/build/
 /dist/
+/nbbuild/
 /nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/nb-gradle/
 
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
+### OS / Editor files ###
+Thumbs.db
+ehthumbs.db
+Desktop.ini
