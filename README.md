@@ -22,34 +22,79 @@ It’s an artistic fusion of **music, mood, and visual design** — built using 
 
 ## 🖥️ Live Demo (Coming Soon)
 
-A deployed version of MoodApp will be available here soon!  
-👉 *(Once live, you can add your Netlify and Railway links here)*
+A deployed version of MoodApp will be available soon!  
+*(Once live, add your Netlify and Railway links here.)*
 
 ---
 
 ## ⚙️ Tech Stack
 
-### Frontend
+### 🎨 Frontend
 - React + TypeScript (Vite)
-- SCSS (BEM naming)
-- Axios for API calls
+- SCSS (BEM)
+- Axios
 
-### Backend
+### 🧩 Backend
 - Java 17+
 - Spring Boot (Web, WebFlux, DevTools)
 - Lombok
-- Jackson for JSON handling
-- Maven for build automation
+- Jackson
+- Maven
 
-### APIs
-- **Pexels API** → Retrieves mood-related images
-- **Deezer API** → Fetches music previews matching user input
+### 🌐 APIs
+- **Pexels API** — mood-related images
+- **Deezer API** — music previews matching mood keywords
 
 ---
 
-## 🚀 Getting Started (Local Setup)
+## 🚀 Getting Started (Local)
 
-### 🧱 1. Clone the repository
+### Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/moodApp.git
+git clone https://github.com/Lolisolera/moodApp.git
 cd moodApp
+
+```
+### Backend (Spring Boot)
+
+1. Open the project in **IntelliJ IDEA (Community Edition)**.
+2. Set your **Pexels API key** as an environment variable:
+
+```bash
+   export PEXELS_API_KEY=your_real_key_here
+```
+### Run the backend application by executing MoodAppApplication.java.
+The backend will start on:
+👉 http://localhost:8090
+
+### Test the backend endpoint:
+
+```bash
+  curl -X POST http://localhost:8090/api/moods/analyze \
+  -H 'Content-Type: application/json' \
+  -d '{"mood":"calm and dreamy"}'
+
+```
+
+### Frontend (Vite + React + TypeScript)
+
+1. cd frontend 
+2. npm install 
+3. npm run dev 
+4. Open your browser and go to: 👉 http://localhost:5173
+
+## 🎮 How to Use
+
+1. Type a mood (e.g., “calm and dreamy”). 
+2. Click Generate. 
+3. Enjoy the background image and 30-second music preview. 
+4. Try different moods to explore new visual and audio combinations! 🎶
+
+## 🧠 Developer Information
+
+Lola Márquez — Junior Full-Stack Developer & Visual Artist (London, UK)
+Blending creativity and technology through code and design.
+
+GitHub: @Lolisolera
+
+Open to suggestions, issues, and pull requests!
