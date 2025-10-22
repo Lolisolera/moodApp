@@ -60,18 +60,28 @@ MoodApp/
 │   └── src/
 │       ├── App.tsx
 │       ├── main.tsx
+│
 │       ├── api/
 │       │   └── axios.ts
+│
 │       ├── services/
 │       │   └── moodService.ts
+│
 │       ├── components/
 │       │   ├── MoodForm.tsx
 │       │   ├── MoodResult.tsx
-│       │   └── Player.tsx
+│       │   ├── Player.tsx
+│       │   └── MessageOverlay.tsx    
+│
 │       ├── pages/
 │       │   └── Home.tsx
+│
 │       ├── hooks/
 │       │   └── useMood.ts
+│
+│       ├── utils/                   
+│       │   └── messages.ts           
+│
 │       └── styles/
 │           ├── _variables.scss
 │           ├── _mixins.scss
@@ -79,9 +89,11 @@ MoodApp/
 │           └── components/
 │               ├── _mood-form.scss
 │               ├── _mood-result.scss
-│               └── _player.scss
+│               ├── _player.scss
+│               └── _message-overlay.scss  
 ├── .gitignore
-└── README.md (this file)
+└── README.md
+
 ```
 
 ---
