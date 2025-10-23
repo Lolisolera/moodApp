@@ -38,3 +38,5 @@ public class TrackDto {
         this.previewUrl = previewUrl;
     }
 }
+
+// This matches what Deezer returns and what the frontend will display later.

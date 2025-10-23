@@ -13,3 +13,7 @@ public class MoodRequest {
         this.mood = mood;
     }
 }
+// These 3 DTO java classes (Data Transfer Objects) connect the backend responses.
+// These are simple Java classes used to move data between the frontend and backend.
+// This in particular recieves the user input from the frontend and returns a JSON object, e.g.
+// e.g { "mood": "calm and dreamy" }

@@ -31,3 +31,4 @@ public class MoodResponse {
         this.track = track;
     }
 }
+// It holds all the information that your backend will send back to the frontend:
