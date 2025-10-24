@@ -58,3 +58,4 @@ Blending creativity and technology through design, code, and music.
 GitHub: @Lolisolera
 
 💡 Open to collaboration, feedback, and creative feature ideas!
+

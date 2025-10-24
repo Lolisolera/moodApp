@@ -23,29 +23,19 @@ public class MoodService {
 
     public MoodResponse analyzeMood(String mood) {
         try {
-            // Fetch image from Pexels
-            String pexelsResponse = pexelsClient.fetchMoodImage(mood);
+            // Fetch final image URL from Pexels (no need to parse JSON)
+            String imageUrl = pexelsClient.fetchMoodImage(mood);
 
-            // Fetch track from Deezer
+            // Fetch track JSON from Deezer
             String deezerResponse = deezerClient.fetchMoodTrack(mood);
-
-            // Parse JSON responses
-            JsonNode pexelsJson = objectMapper.readTree(pexelsResponse);
             JsonNode deezerJson = objectMapper.readTree(deezerResponse);
-
-            // Extract first image URL (fallback placeholder if none found)
-            String imageUrl = pexelsJson.path("photos").path(0).path("src").path("large").asText(
-                    "https://via.placeholder.com/600x400.png?text=" + mood + "+vibes"
-            );
 
             // Extract first track info (if available)
             JsonNode firstTrack = deezerJson.path("data").path(0);
-
             String trackTitle = firstTrack.path("title").asText("");
             String artistName = firstTrack.path("artist").path("name").asText("");
             String previewUrl = firstTrack.path("preview").asText("");
 
-            // Friendly fallback if no valid track found
             if (trackTitle.isEmpty() || artistName.isEmpty() || previewUrl.isEmpty()) {
                 trackTitle = "a mystery tune 🎧";
                 artistName = "no perfect match found";
@@ -66,8 +56,6 @@ public class MoodService {
         }
     }
 }
-
-
 
 // This file is the logic of the application. It connects to the 2 APIs and makes them to return one combined response to the user.
 // Gets image JSON from Pexels, gets song JSON from Deezer, Parses raw JSON strings into usable data,

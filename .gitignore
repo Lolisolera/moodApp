@@ -36,3 +36,7 @@ target/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Environment variable files
+.env
+.env.*
