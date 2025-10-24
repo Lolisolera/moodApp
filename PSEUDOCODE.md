@@ -119,7 +119,7 @@ MoodApp/
 
 ### 2) Backend Dependencies
 
-All required dependencies are already configured in [`pom.xml`](./pom.xml).
+All required dependencies are already configured in [`pom.xml`](backend/pom.xml).
 
 These include:
 

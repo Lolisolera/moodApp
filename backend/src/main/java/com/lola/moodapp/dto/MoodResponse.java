@@ -1,12 +1,12 @@
 package com.lola.moodapp.dto;
 
 public class MoodResponse {
-
     private String mood;
     private String imageUrl;
     private TrackDto track;
 
-    // --- Getters and Setters ---
+    public MoodResponse() {}
+
     public String getMood() {
         return mood;
     }
@@ -31,4 +31,3 @@ public class MoodResponse {
         this.track = track;
     }
 }
-// It holds all the information that your backend will send back to the frontend:

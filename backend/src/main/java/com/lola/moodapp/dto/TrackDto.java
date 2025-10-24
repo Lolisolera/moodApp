@@ -1,19 +1,18 @@
 package com.lola.moodapp.dto;
 
 public class TrackDto {
-
     private String title;
     private String artist;
     private String previewUrl;
 
-    // --- Constructor ---
+    public TrackDto() {}
+
     public TrackDto(String title, String artist, String previewUrl) {
         this.title = title;
         this.artist = artist;
         this.previewUrl = previewUrl;
     }
 
-    // --- Getters and Setters ---
     public String getTitle() {
         return title;
     }
@@ -38,5 +37,3 @@ public class TrackDto {
         this.previewUrl = previewUrl;
     }
 }
-
-// This matches what Deezer returns and what the frontend will display later.
