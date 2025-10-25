@@ -5,7 +5,7 @@ target/
 **/src/test/**/target/
 
 ### IntelliJ IDEA ###
-../.idea/
+.idea/
 *.iml
 *.iws
 *.ipr
@@ -37,6 +37,8 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Environment variable files
+### Environment variable files ###
 .env
 .env.*
+*.properties
+!src/main/resources/application.properties
