@@ -8,13 +8,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 @Service
 public class PexelsClient {
 
     private final WebClient webClient;
 
-    @Value("${pexels.api.key}")
+    @Value("${pexels.api.key:}")
     private String apiKey; // injected after bean creation
+
+    @Value("${my.pexels.apikey.encoded:}")
+    private String encodedKey; // optional Base64-encoded fallback
 
     public PexelsClient(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder
@@ -24,10 +30,23 @@ public class PexelsClient {
 
     @PostConstruct
     public void checkApiKey() {
-        if (apiKey == null || apiKey.isBlank()) {
-            System.err.println("Missing Pexels API key! Please check application.properties.");
+        // if apiKey blank, try to decode the encoded fallback
+        if ((apiKey == null || apiKey.isBlank()) && encodedKey != null && !encodedKey.isBlank()) {
+            try {
+                byte[] decoded = Base64.getDecoder().decode(encodedKey.trim());
+                apiKey = new String(decoded, StandardCharsets.UTF_8).trim();
+            } catch (IllegalArgumentException e) {
+                // decoding failed — leave apiKey as blank so we print a helpful message below
+            }
+        }
+
+        if (apiKey == null) {
+            System.err.println("Missing Pexels API key (null). Please check application.properties/classpath.");
+        } else if (apiKey.isBlank()) {
+            System.err.println("Missing Pexels API key (blank). Please check application.properties/classpath.");
         } else {
-            System.out.println("Pexels API key successfully loaded.");
+            String suffix = apiKey.length() > 6 ? apiKey.substring(apiKey.length() - 6) : apiKey;
+            System.out.println("Pexels API key successfully loaded. (length=" + apiKey.length() + ", suffix=" + suffix + ")");
         }
     }
 
