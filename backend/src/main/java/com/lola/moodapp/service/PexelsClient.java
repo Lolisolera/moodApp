@@ -1,102 +1,76 @@
 package com.lola.moodapp.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClientResponseException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 @Service
 public class PexelsClient {
 
-    private final WebClient webClient;
+    @Value("${pexels.api.key}")
+    private String pexelsApiKey;
 
-    @Value("${pexels.api.key:}")
-    private String apiKey; // injected after bean creation
-
-    @Value("${my.pexels.apikey.encoded:}")
-    private String encodedKey; // optional Base64-encoded fallback
-
-    public PexelsClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder
-                .baseUrl("https://api.pexels.com")
-                .build();
-    }
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @PostConstruct
-    public void checkApiKey() {
-        // if apiKey blank, try to decode the encoded fallback
-        if ((apiKey == null || apiKey.isBlank()) && encodedKey != null && !encodedKey.isBlank()) {
-            try {
-                byte[] decoded = Base64.getDecoder().decode(encodedKey.trim());
-                apiKey = new String(decoded, StandardCharsets.UTF_8).trim();
-            } catch (IllegalArgumentException e) {
-                // decoding failed — leave apiKey as blank so we print a helpful message below
-            }
-        }
-
-        if (apiKey == null) {
-            System.err.println("Missing Pexels API key (null). Please check application.properties/classpath.");
-        } else if (apiKey.isBlank()) {
-            System.err.println("Missing Pexels API key (blank). Please check application.properties/classpath.");
-        } else {
-            String suffix = apiKey.length() > 6 ? apiKey.substring(apiKey.length() - 6) : apiKey;
-            System.out.println("Pexels API key successfully loaded. (length=" + apiKey.length() + ", suffix=" + suffix + ")");
-        }
+    public void init() {
+        // Don’t log the whole key in real life; this is just to prove which source is used.
+        System.out.println("🔑 Pexels API key loaded (len=" + (pexelsApiKey == null ? 0 : pexelsApiKey.length())
+                + ", prefix=" + (pexelsApiKey == null ? "null" : pexelsApiKey.substring(0, Math.min(6, pexelsApiKey.length()))) + ")");
     }
 
+    /**
+     * Fetch a representative image URL for a mood using Pexels Search.
+     */
     public String fetchMoodImage(String mood) {
-        if (mood == null || mood.isBlank()) {
-            System.err.println("⚠️ Mood query cannot be empty.");
-            return "https://via.placeholder.com/600x400.png?text=Invalid+mood";
-        }
-
         try {
-            String jsonResponse = webClient.get()
-                    .uri(uriBuilder -> uriBuilder
-                            .path("/v1/search")
-                            .queryParam("query", mood)
-                            .queryParam("per_page", 1)
-                            .build())
-                    .header("Authorization", apiKey)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .onErrorResume(e -> {
-                        System.err.println("❌ Error calling Pexels API: " + e.getMessage());
-                        return Mono.just("{}");
-                    })
-                    .block();
+            String q = URLEncoder.encode(mood, StandardCharsets.UTF_8);
+            String url = "https://api.pexels.com/v1/search?query=" + q + "&per_page=1";
 
-            if (jsonResponse == null || jsonResponse.isBlank()) {
-                System.err.println("⚠️ Empty response from Pexels API.");
-                return getFallbackImage(mood);
+            HttpHeaders headers = new HttpHeaders();
+            // ✅ Pexels expects the raw API key (NO "Bearer ")
+            headers.set("Authorization", pexelsApiKey);
+            headers.set("Accept", "application/json");
+            headers.set("User-Agent", "MoodApp/1.0");
+
+            HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url, HttpMethod.GET, entity, String.class
+            );
+
+            if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
+                throw new RuntimeException("Failed to fetch image from Pexels. Status: " + response.getStatusCode());
             }
 
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(jsonResponse);
-            JsonNode firstPhoto = root.path("photos").path(0);
+            JsonNode json = objectMapper.readTree(response.getBody());
+            JsonNode photos = json.path("photos");
 
-            String imageUrl = firstPhoto.path("src").path("large").asText(null);
-
-            if (imageUrl == null || imageUrl.isEmpty()) {
-                System.err.println("⚠️ No image found for mood: " + mood);
-                return getFallbackImage(mood);
+            if (photos.isArray() && photos.size() > 0) {
+                // prefer a decent-sized image
+                String large = photos.get(0).path("src").path("large").asText("");
+                if (!large.isEmpty()) return large;
+                return photos.get(0).path("src").path("original").asText("");
             }
 
-            return imageUrl;
+            return "https://via.placeholder.com/600x400?text=No+Image+Found";
 
+        } catch (RestClientResponseException e) {
+            // Shows Pexels’ error body (useful for 401/403)
+            String body = e.getResponseBodyAsString();
+            throw new RuntimeException("Error fetching mood image: " + e.getRawStatusCode() + " " + e.getStatusText()
+                    + (body != null ? (": \"" + body + "\"") : ""), e);
         } catch (Exception e) {
-            System.err.println("❌ Exception while fetching Pexels image: " + e.getMessage());
-            return getFallbackImage(mood);
+            throw new RuntimeException("Error fetching mood image: " + e.getMessage(), e);
         }
-    }
-
-    private String getFallbackImage(String mood) {
-        return "https://via.placeholder.com/600x400.png?text=" + mood + "+vibes";
     }
 }
