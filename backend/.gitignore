@@ -1,14 +1,16 @@
 ### Java / Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
-**/src/main/**/target/
-**/src/test/**/target/
 
 ### IntelliJ IDEA ###
 .idea/
 *.iml
 *.iws
 *.ipr
+out/
+
+### VS Code (added)
+.vscode/
 
 ### Logs & Temporary files ###
 *.log
@@ -16,6 +18,8 @@ target/
 *.bak
 *.swp
 .DS_Store
+hs_err_pid*
+replay_pid*
 
 ### Eclipse ###
 .classpath
