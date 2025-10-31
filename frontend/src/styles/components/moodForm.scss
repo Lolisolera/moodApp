@@ -1,27 +1,29 @@
+@use "../variables" as *;
+
 .mood-form {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 16px 0;
+  gap: $space-sm;
+  margin: $space-md 0;
 
   &__input {
-    padding: 8px;
+    padding: $space-sm;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid $border-color;
+    border-radius: $radius;
   }
 
   &__button {
-    padding: 8px 16px;
+    padding: $space-sm $space-md;
     font-size: 16px;
     cursor: pointer;
     border: none;
-    border-radius: 8px;
-    background: #6a5acd;
+    border-radius: $radius;
+    background: $primary;
     color: #fff;
 
     &:hover {
-      background: #5949b9;
+      background: $primary-hover;
     }
   }
 }
