@@ -13,7 +13,6 @@ function App() {
       audio.pause();
       setIsPlaying(false);
     }
-
     setResponse(data);
     setAudio(null);
   };
@@ -21,7 +20,7 @@ function App() {
   const togglePreview = () => {
     if (!response?.track?.previewUrl) return;
 
-    // If audio exists, toggle play/pause
+    // Toggle play/pause if audio already exists
     if (audio) {
       if (isPlaying) {
         audio.pause();
@@ -38,12 +37,11 @@ function App() {
     setAudio(newAudio);
     newAudio.play();
     setIsPlaying(true);
-
     newAudio.onended = () => setIsPlaying(false);
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+    <div className="page">
       <h1>MoodApp 🎭</h1>
 
       <MoodForm
