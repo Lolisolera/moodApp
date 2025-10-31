@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "../styles/components/moodForm.scss";
 
 interface MoodFormProps {
   setResponse: (data: any) => void;
@@ -25,23 +26,21 @@ export default function MoodForm({ setResponse, stopAudio }: MoodFormProps) {
   };
 
   return (
-    <div>
+    <div className="mood-form">
       <input
+        className="mood-form__input"
         type="text"
         placeholder="How are you feeling?"
         value={mood}
         onChange={(e) => setMood(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px", marginRight: "8px" }}
       />
 
       <button
+        className="mood-form__button"
         onClick={analyzeMood}
-        style={{ padding: "8px 16px", fontSize: "16px", cursor: "pointer" }}
       >
         Reveal My Vibe ✨
       </button>
     </div>
   );
 }
-
-// Holds state + passes down handlers

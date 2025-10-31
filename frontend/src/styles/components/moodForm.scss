@@ -1,0 +1,27 @@
+.mood-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+
+  &__input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  &__button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background: #6a5acd;
+    color: #fff;
+
+    &:hover {
+      background: #5949b9;
+    }
+  }
+}

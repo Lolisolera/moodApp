@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/components/moodResult.scss";
 
 interface MoodResultProps {
   response: any;
@@ -6,26 +7,30 @@ interface MoodResultProps {
   togglePreview: () => void;
 }
 
-export default function MoodResult({ response, isPlaying, togglePreview }: MoodResultProps) {
-  if (!response) return null; // don't render anything until we have data
+export default function MoodResult({
+  response,
+  isPlaying,
+  togglePreview,
+}: MoodResultProps) {
+  if (!response) return null;
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <h3>Result:</h3>
+    <div className="mood-result">
+      <h3 className="mood-result__title">Result:</h3>
 
-      <p><strong>Mood:</strong> {response.mood}</p>
-      <p><strong>Track:</strong> {response.track?.title} — {response.track?.artist}</p>
+      <p className="mood-result__text">
+        <strong>Mood:</strong> {response.mood}
+      </p>
 
-      {/* Play Preview Button */}
+      <p className="mood-result__text">
+        <strong>Track:</strong> {response.track?.title} — {response.track?.artist}
+      </p>
+
+      {/* Play Button */}
       {response.track?.previewUrl && (
         <button
+          className="mood-result__button"
           onClick={togglePreview}
-          style={{
-            padding: "6px 12px",
-            fontSize: "14px",
-            marginTop: "10px",
-            cursor: "pointer"
-          }}
         >
           {isPlaying ? "⏸️ Pause" : "▶️ Play Preview"}
         </button>
@@ -34,17 +39,11 @@ export default function MoodResult({ response, isPlaying, togglePreview }: MoodR
       {/* Mood Image */}
       {response.imageUrl && (
         <img
+          className="mood-result__image"
           src={response.imageUrl}
           alt="Mood"
-          style={{
-            width: "200px",
-            borderRadius: "10px",
-            marginTop: "10px"
-          }}
         />
       )}
     </div>
   );
 }
-
-// Input + API call

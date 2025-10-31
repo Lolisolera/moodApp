@@ -1,0 +1,33 @@
+.mood-result {
+  margin-top: 20px;
+
+  &__title {
+    margin: 0 0 8px 0;
+  }
+
+  &__text {
+    margin: 4px 0;
+  }
+
+  &__button {
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background: #6a5acd;
+    color: #fff;
+
+    &:hover {
+      background: #5949b9;
+    }
+  }
+
+  &__image {
+    width: 200px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: block;
+  }
+}
