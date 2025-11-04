@@ -1,0 +1,18 @@
+@use "./variables" as *;
+
+// Usage: @include respond(md) { ... }
+@mixin respond($bp) {
+  $value: map-get($breakpoints, $bp);
+  @if $value == null {
+    @error "Breakpoint `#{$bp}` not found in $breakpoints map.";
+  }
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
+// $bp = The breakpoint name (sm/md/lg/xl)
+// Then SCSS looks up what md means in our $breakpoints map = medium
+// map-get - Reads the size value for that breakpoint
+// @content - Inserts your CSS inside the media query
+// @include respond (md) - start styling from tablet width

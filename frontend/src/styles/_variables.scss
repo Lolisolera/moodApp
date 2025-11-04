@@ -10,3 +10,17 @@ $space-md: 16px;
 
 // Radius
 $radius: 8px;
+
+// Breakpoints (mobile-first)
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+// Spacing scale
+$space-xs: 4px;
+$space-lg: 24px;
+$space-xl: 32px;
+$space-2xl: 48px;
