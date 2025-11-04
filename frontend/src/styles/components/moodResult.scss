@@ -1,36 +1,123 @@
 @use "../variables" as *;
+@use "../mixins" as *;
 
 .mood-result {
-  margin-top: $space-md;
+  margin-top: $space-sm; // fixed: $space-xm does not exist
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
 
   &__title {
-    margin: 0 0 $space-sm 0;
+    font-size: 1.4rem;
+    margin-bottom: $space-sm;
+    font-weight: 600;
   }
 
   &__text {
-    margin: 4px 0;
+    margin: $space-xs 0;
+    font-size: 1.05rem;
+    color: $text-color;
   }
 
   &__button {
-    padding: 6px 12px;
-
-    font-size: 14px;
     margin-top: $space-sm;
+    padding: $space-sm $space-md;
+    font-size: 1rem;
     cursor: pointer;
     border: none;
     border-radius: $radius;
-    background: $primary;
+    background-color: $primary;
     color: #fff;
+    transition: background-color 0.2s, transform 0.1s;
 
     &:hover {
-      background: $primary-hover;
+      background-color: $primary-hover;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: scale(0.97);
     }
   }
 
+  &__image-wrapper {
+    margin-top: $space-lg;
+    margin-bottom: $space-lg;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ==== Image styles (landscape default) ==== */
   &__image {
-    width: 200px;
-    border-radius: 10px;
-    margin-top: $space-sm;
+    width: 100%;
+    max-width: 420px;
+    max-height: 55vh;   // prevents overflow for tall images
+    height: auto;
+
+    border-radius: $radius-lg;
     display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: box-shadow 0.4s ease;
+
+    &.glow {
+      animation: moodGlow 0.9s ease-out forwards;
+    }
+  }
+
+  /* ==== Portrait images ==== */
+  &__image[landscape="false"] {
+    object-fit: contain;
+    width: 90vw;
+    max-width: 420px;
+    max-height: 55vh; // even stricter on portrait
+  }
+
+  @include respond(md) {
+    &__image {
+      width: 70vw;
+      max-width: 480px;
+      max-height: 70vh;
+    }
+
+    &__image[landscape="false"] {
+      width: 60vw;
+      max-width: 420px;
+      max-height: 60vh;
+    }
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Mood Glow Flash */
+@keyframes moodGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 0, 200, 0);
+    transform: scale(0.97);
+  }
+  50% {
+    box-shadow:
+      0 0 35px rgba(136, 56, 255, 0.6),
+      0 0 60px rgba(255, 0, 180, 0.4);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+    transform: scale(1);
   }
 }

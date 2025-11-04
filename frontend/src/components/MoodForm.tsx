@@ -27,20 +27,22 @@ export default function MoodForm({ setResponse, stopAudio }: MoodFormProps) {
 
   return (
     <div className="mood-form">
-      <input
-        className="mood-form__input"
-        type="text"
-        placeholder="How are you feeling?"
-        value={mood}
-        onChange={(e) => setMood(e.target.value)}
-      />
+      <div className="mood-form__row">
+        <input
+          className="mood-form__input"
+          type="text"
+          placeholder="How are you feeling?"
+          value={mood}
+          onChange={(e) => setMood(e.target.value)}
+        />
 
-      <button
-        className="mood-form__button"
-        onClick={analyzeMood}
-      >
-        Reveal My Vibe ✨
-      </button>
+        <button
+          className="mood-form__button"
+          onClick={analyzeMood}
+        >
+          Reveal My Vibe ✨
+        </button>
+      </div>
     </div>
   );
 }

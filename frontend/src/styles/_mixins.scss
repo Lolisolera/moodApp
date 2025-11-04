@@ -1,15 +1,20 @@
 @use "./variables" as *;
 
+@use "sass:map"; //import Sass map utilities for future-proof
+
 // Usage: @include respond(md) { ... }
 @mixin respond($bp) {
-  $value: map-get($breakpoints, $bp);
+  $value: map.get($breakpoints, $bp);
+
   @if $value == null {
-    @error "Breakpoint `#{$bp}` not found in $breakpoints map.";
+    @error "⚠️ Breakpoint `#{$bp}` not found in $breakpoints map.";
   }
+
   @media (min-width: $value) {
     @content;
   }
 }
+
 
 // $bp = The breakpoint name (sm/md/lg/xl)
 // Then SCSS looks up what md means in our $breakpoints map = medium

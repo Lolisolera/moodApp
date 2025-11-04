@@ -1,29 +1,54 @@
 @use "../variables" as *;
+@use "../mixins" as *;
 
 .mood-form {
+  width: 100%;
   display: flex;
-  align-items: center;
-  gap: $space-sm;
-  margin: $space-md 0;
+  justify-content: center;
+  margin-bottom: $space-sm;
+
+  &__row {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    gap: $space-lg;
+
+    @include respond(sm) {
+      gap: $space-md;
+    }
+  }
 
   &__input {
-    padding: $space-sm;
-    font-size: 16px;
-    border: 1px solid $border-color;
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid $border-color;
     border-radius: $radius;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: $primary;
+    }
   }
 
   &__button {
-    padding: $space-sm $space-md;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 600;
     border-radius: $radius;
+    cursor: pointer;
     background: $primary;
     color: #fff;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
 
     &:hover {
       background: $primary-hover;
+    }
+
+    &:active {
+      transform: scale(0.97);
     }
   }
 }

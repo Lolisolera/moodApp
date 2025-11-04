@@ -14,35 +14,45 @@ export default function MoodResult({
 }: MoodResultProps) {
   if (!response) return null;
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+
+    // Detect if portrait or landscape and pass to SCSS via attribute
+    img.setAttribute(
+      "landscape",
+      img.naturalWidth >= img.naturalHeight ? "true" : "false"
+    );
+  };
+
   return (
     <div className="mood-result">
       <h3 className="mood-result__title">Result:</h3>
 
-      <p className="mood-result__text">
+      <div className="mood-result__text">
         <strong>Mood:</strong> {response.mood}
-      </p>
+      </div>
 
-      <p className="mood-result__text">
-        <strong>Track:</strong> {response.track?.title} — {response.track?.artist}
-      </p>
+      <div className="mood-result__text">
+        <strong>Track:</strong>{" "}
+        {response.track?.title} — {response.track?.artist}
+      </div>
 
-      {/* Play Button */}
       {response.track?.previewUrl && (
-        <button
-          className="mood-result__button"
-          onClick={togglePreview}
-        >
+        <button className="mood-result__button" onClick={togglePreview}>
           {isPlaying ? "⏸️ Pause" : "▶️ Play Preview"}
         </button>
       )}
 
-      {/* Mood Image */}
       {response.imageUrl && (
-        <img
-          className="mood-result__image"
-          src={response.imageUrl}
-          alt="Mood"
-        />
+        <div className="mood-result__image-wrapper">
+          <img
+            key={response.imageUrl} // Force animation reload on new image
+            className={`mood-result__image glow`}
+            src={response.imageUrl}
+            alt="Mood"
+            onLoad={handleImageLoad}
+          />
+        </div>
       )}
     </div>
   );
