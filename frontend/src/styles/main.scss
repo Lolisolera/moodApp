@@ -8,8 +8,9 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(255, 255, 255, 0.92);
+
+  background-color: #b30000; /* fallback */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,68 +18,91 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==== Minimal global reset ==== */
+/* ==== Reset ==== */
 * {
   box-sizing: border-box;
 }
 
-/* ==== Body (main background + text) ==== */
+/* ======================================
+    Neon Red → Orange → Gold Background
+====================================== */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
   color: $text-color;
+
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 165, 0, 0.55), transparent 60%),
+    radial-gradient(circle at 50% 60%, rgba(255, 120, 0, 0.45), transparent 60%),
+    radial-gradient(circle at 50% 90%, rgba(255, 0, 64, 0.55), transparent 75%),
+    linear-gradient(180deg, #b30000 0%, #ff4d00 50%, #ffb300 100%);
+  background-attachment: fixed;
 }
 
 /* ==== Links ==== */
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #ffe38c;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #fff9d0;
 }
 
 /* ==== Buttons ==== */
 button {
   border-radius: $radius;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 200, 0, 0.6);
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background: linear-gradient(90deg, #ff4d00, #ff9a00);
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 0 10px rgba(255, 110, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.25s, background 0.25s;
 }
 
-/* ==== Page title ==== */
+button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, #ff6c00, #ffc200);
+  box-shadow:
+    0 0 15px rgba(255, 140, 0, 0.9),
+    0 0 25px rgba(255, 180, 0, 0.5);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto rgba(255, 200, 0, 0.7);
+}
+
+/* ======================================
+    Title — Gold Gradient Text
+====================================== */
 h1 {
   font-size: 2.4rem;
   line-height: 1.1;
   margin-bottom: $space-md;
+
+  background: linear-gradient(90deg, #ffe28a, #ffc400, #fff6c2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @include respond(md) {
     font-size: 3.2rem;
   }
 }
 
-/* ==== Page Layout Container ==== */
+/* ======================================
+    Warm Frosted Panel
+====================================== */
 .page {
   max-width: 600px;
   margin: 0 auto;
-  padding: $space-md $space-md $space-md; // reduced top padding
+  padding: $space-md;
   text-align: center;
 
   display: flex;
@@ -88,6 +112,16 @@ h1 {
 
   min-height: 100vh;
   gap: $space-sm;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 220, 120, 0.4);
+  box-shadow:
+    0 0 25px rgba(255, 100, 0, 0.55),
+    0 0 45px rgba(255, 200, 0, 0.35);
 
   @include respond(md) {
     max-width: 800px;
@@ -99,24 +133,50 @@ h1 {
   }
 }
 
-/* ==== Page spacing tweak for title inside page ==== */
+/* ==== Title spacing ==== */
 .page > h1 {
   margin-top: $space-sm;
   margin-bottom: $space-sm;
 }
 
-/* ==== Light-mode palette overrides ==== */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* ======================================
+    Gold Text Accents for labels
+====================================== */
+.mood-result__text {
+  color: #ffebad;
 }
+
+.mood-result__text strong {
+  color: #ffd700;
+}
+
+/* ======================================
+    Gold Glow + Shimmer Around Image
+====================================== */
+.mood-result__image {
+  border: 2px solid rgba(255, 210, 0, 0.85);
+  box-shadow:
+    0 0 15px rgba(255, 200, 0, 0.6),
+    0 0 30px rgba(255, 150, 0, 0.25),
+    0 0 60px rgba(255, 120, 0, 0.2);
+}
+
+/* Soft shimmer animation wrapper */
+@keyframes goldShimmer {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.15); }
+  100% { filter: brightness(1); }
+}
+
+.mood-result__image-wrapper {
+  animation: goldShimmer 6s infinite ease-in-out;
+}
+
+/* ======================================
+   Light mode disabled for now
+====================================== */
+/*
+@media (prefers-color-scheme: light) { ... }
+*/
 
 /* Index.css fully migrated */
