@@ -3,9 +3,9 @@
 
 /* ==== Root defaults ==== */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font-base;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: $weight-regular;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.92);
@@ -30,7 +30,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font-base;
+  font-weight: $weight-regular;
   color: $text-color;
 
   background:
@@ -57,13 +58,13 @@ button {
   border: 1px solid rgba(255, 200, 0, 0.6);
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 600;
-  font-family: inherit;
+  font-weight: $weight-semibold;
+  font-family: $font-base;
   background: linear-gradient(90deg, #ff4d00, #ff9a00);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 110, 0, 0.7);
-  transition: transform 0.2s ease, box-shadow 0.25s, background 0.25s;
+  transition: transform 0.2s ease, box-shadow 0.25s, background-color 0.25s;
 }
 
 button:hover {
@@ -80,19 +81,40 @@ button:focus-visible {
 }
 
 /* ======================================
-    Title — Gold Gradient Text
+    Title — Gold Gradient Text (Comfortaa)
 ====================================== */
 h1 {
-  font-size: 2.4rem;
+  font-family: $font-heading;
+  font-weight: $weight-bold;
+  font-size: 2.6rem;
   line-height: 1.1;
   margin-bottom: $space-md;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 
-  background: linear-gradient(90deg, #ffe28a, #ffc400, #fff6c2);
+  /* gold gradient shimmer */
+  background: linear-gradient(90deg, #fff6c2, #ffd700, #ffb700, #fff6c2);
+  background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: goldTextShimmer 6s linear infinite;
+
+  text-shadow:
+    0 0 12px rgba(255, 220, 100, 0.45),
+    0 0 24px rgba(255, 220, 100, 0.25);
 
   @include respond(md) {
     font-size: 3.2rem;
+  }
+}
+
+/* shimmer animation for title */
+@keyframes goldTextShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
   }
 }
 
