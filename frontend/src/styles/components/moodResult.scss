@@ -50,7 +50,7 @@
 
     /* Triggers when the image finishes loading */
     &.flash {
-      animation: doublePinkFlash 1.8s ease-in-out;
+      animation: doubleGoldFlash 1.8s ease-in-out;
     }
   }
 
@@ -113,25 +113,25 @@
   }
 }
 
-/* Double pink flash animation (extended duration per flash) */
-@keyframes doublePinkFlash {
+/* ✨ Double gold flash animation (same structure, gold colour only) */
+@keyframes doubleGoldFlash {
   0%, 100% {
     box-shadow: none;
   }
   15% {
-    box-shadow: 0 0 35px 15px rgba(255, 105, 180, 0.75); // flash 1 begins
+    box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85); // flash 1 begins (gold)
   }
   35% {
-    box-shadow: 0 0 55px 25px rgba(255, 105, 180, 0.6); // hold glow
+    box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7); // hold glow (gold)
   }
   45% {
     box-shadow: none; // fade out
   }
   55% {
-    box-shadow: 0 0 35px 15px rgba(255, 105, 180, 0.75); // flash 2 begins
+    box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85); // flash 2 begins (gold)
   }
   75% {
-    box-shadow: 0 0 55px 25px rgba(255, 105, 180, 0.6); // hold glow
+    box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7); // hold glow (gold)
   }
   85% {
     box-shadow: none; // fade out
