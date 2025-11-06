@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/components/moodResult.scss";
 
 interface MoodResultProps {
@@ -12,6 +12,8 @@ export default function MoodResult({
   isPlaying,
   togglePreview,
 }: MoodResultProps) {
+  const [flash, setFlash] = useState(false);
+
   if (!response) return null;
 
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -22,6 +24,11 @@ export default function MoodResult({
       "landscape",
       img.naturalWidth >= img.naturalHeight ? "true" : "false"
     );
+
+    // Trigger double flash animation
+    setFlash(true);
+    const timer = setTimeout(() => setFlash(false), 1500);
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -44,10 +51,12 @@ export default function MoodResult({
       )}
 
       {response.imageUrl && (
-        <div className="mood-result__image-wrapper">
+        <div
+          className={`mood-result__image-wrapper ${flash ? "flash" : ""}`}
+        >
           <img
             key={response.imageUrl} // Force animation reload on new image
-            className={`mood-result__image glow`}
+            className="mood-result__image"
             src={response.imageUrl}
             alt="Mood"
             onLoad={handleImageLoad}
