@@ -59,6 +59,13 @@ function App() {
           togglePreview={togglePreview}
         />
       )}
+
+      {/* 👽 Footer signature */}
+      <footer className="footer">
+        <p className="footer__text">
+          Created by <span>Lola Marquez 👽</span>
+        </p>
+      </footer>
     </div>
   );
 }
