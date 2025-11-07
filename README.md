@@ -3,7 +3,7 @@
 **MoodApp** is an interactive full-stack application that transforms your emotions into visuals and sound.  
 Simply type how you’re feeling, and the app generates:
 
-- 🎵 A **mood-matching playlist or song** (via the free **Deezer API**)
+- 🎵 A **mood-matching song** (via the free **Deezer API**)
 - 🖼️ A **related background image** (via the free **Pexels API**)
 
 It’s an artistic fusion of **music, mood, and visual design** — built using modern web technologies.
@@ -23,7 +23,7 @@ It’s an artistic fusion of **music, mood, and visual design** — built using 
 ## 🖥️ Live Demo (Coming Soon)
 
 A deployed version of MoodApp will be available soon!  
-*(Once live, add your Netlify and Railway links here.)*
+*(Once live, I'll add the Netlify and Railway links here.)*
 
 ---
 
