@@ -36,7 +36,13 @@ export default function MoodResult({
       <h3 className="mood-result__title">Result:</h3>
 
       <div className="mood-result__text">
-        <strong>Mood:</strong> {response.mood}
+        <strong>Mood:</strong>{" "}
+        <span
+          key={response.mood} // re-triggers animation when mood changes
+          className={`mood-result__mood ${flash ? "flash" : ""}`}
+        >
+          {response.mood}
+        </span>
       </div>
 
       <div className="mood-result__text">
