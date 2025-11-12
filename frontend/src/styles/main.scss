@@ -126,7 +126,7 @@ h1 {
 .page {
   max-width: 600px;
   margin: $space-sm auto 0 auto;
-  padding: $space-md $space-md $space-2xl $space-md; /* ✅ added generous bottom padding */
+  padding: $space-md $space-md $space-2xl $space-md;
   text-align: center;
 
   display: flex;
@@ -134,7 +134,7 @@ h1 {
   align-items: center;
   justify-content: flex-start;
 
-  /* ✅ remove min-height so red background can show */
+  /* remove min-height so red background can show */
   gap: $space-xs;
 
   background: rgba(255, 255, 255, 0.2);
