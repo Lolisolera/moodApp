@@ -2,16 +2,18 @@
 @use "../mixins" as *;
 
 .mood-result {
-  /* Layout simplified: no fixed viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
   padding: $space-md 0 $space-lg 0;
   margin: 0 auto;
   text-align: center;
   animation: fadeIn 0.4s ease-out;
+
+  /* new subtle transparency to blend better */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: $radius-lg;
 
   &__title {
     font-size: 1.4rem;
@@ -27,7 +29,6 @@
     line-height: 1.5;
   }
 
-  /* Flashing Mood Text */
   &__mood {
     color: $accent;
     font-weight: 700;
@@ -55,7 +56,6 @@
     }
   }
 
-  /* Image Wrapper */
   &__image-wrapper {
     margin-top: $space-md;
     display: flex;
@@ -68,11 +68,10 @@
     }
   }
 
-  /* Landscape images */
   &__image {
     width: 100%;
     max-width: 420px;
-    max-height: 45vh; /* smaller for better fit */
+    max-height: 45vh;
     height: auto;
     border-radius: $radius-lg;
     display: block;
@@ -82,18 +81,16 @@
     transition: box-shadow 0.4s ease;
   }
 
-  /* Portrait images */
   &__image[landscape="false"] {
     object-fit: contain;
     width: auto;
     height: auto;
     max-width: 55vw;
-    max-height: 40vh; /* 👈 ensures no scrolling */
+    max-height: 40vh;
     margin: 0 auto;
     display: block;
   }
 
-  /* Responsive adjustment */
   @include respond(md) {
     &__image {
       width: 70vw;
@@ -109,8 +106,7 @@
   }
 }
 
-/* Animations */
-
+/* Animations unchanged */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -139,25 +135,11 @@
 }
 
 @keyframes doubleGoldFlash {
-  0%, 100% {
-    box-shadow: none;
-  }
-  15% {
-    box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85);
-  }
-  35% {
-    box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7);
-  }
-  45% {
-    box-shadow: none;
-  }
-  55% {
-    box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85);
-  }
-  75% {
-    box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7);
-  }
-  85% {
-    box-shadow: none;
-  }
+  0%, 100% { box-shadow: none; }
+  15% { box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85); }
+  35% { box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7); }
+  45% { box-shadow: none; }
+  55% { box-shadow: 0 0 35px 15px rgba(255, 215, 0, 0.85); }
+  75% { box-shadow: 0 0 55px 25px rgba(255, 223, 80, 0.7); }
+  85% { box-shadow: none; }
 }

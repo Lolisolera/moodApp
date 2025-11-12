@@ -120,11 +120,13 @@ h1 {
 
 /* ======================================
     Warm Frosted Panel
+    + top/bottom margins added
 ====================================== */
+
 .page {
   max-width: 600px;
-  margin: 0 auto;
-  padding: $space-md;
+  margin: $space-sm auto 0 auto;
+  padding: $space-md $space-md $space-2xl $space-md; /* ✅ added generous bottom padding */
   text-align: center;
 
   display: flex;
@@ -132,12 +134,10 @@ h1 {
   align-items: center;
   justify-content: flex-start;
 
-  min-height: 100vh;
-  gap: $space-sm;
+  /* ✅ remove min-height so red background can show */
+  gap: $space-xs;
 
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 18px;
 
   border: 1px solid rgba(255, 220, 120, 0.4);
@@ -147,13 +147,17 @@ h1 {
 
   @include respond(md) {
     max-width: 800px;
-    padding: $space-xl $space-lg;
+    padding: $space-lg $space-lg $space-2xl $space-lg;
+    margin: $space-sm auto 0 auto;
   }
 
   @include respond(lg) {
     max-width: 1100px;
   }
 }
+
+
+
 
 /* ==== Title spacing ==== */
 .page > h1 {
