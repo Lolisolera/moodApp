@@ -35,20 +35,21 @@ export default function MoodResult({
     <div className="mood-result">
       <h3 className="mood-result__title">Result:</h3>
 
-      <div className="mood-result__text">
-        <strong>Mood:</strong>{" "}
-        <span
-          key={response.mood} // re-triggers animation when mood changes
-          className={`mood-result__mood ${flash ? "flash" : ""}`}
-        >
-          {response.mood}
-        </span>
-      </div>
+    <div className="mood-result__text">
+      Feeling{" "}
+      <span
+        key={response.mood}
+        className={`mood-result__mood ${flash ? "flash" : ""}`}
+      >
+        {response.mood}
+      </span>
+      ?<br />
+      Me too! let’s turn it into a moment 🎶
+      <br />
+      <br />
+      “{response.track?.title}” by {response.track?.artist} is your emotional banger of the day 🎧
+    </div>
 
-      <div className="mood-result__text">
-        <strong>Track:</strong>{" "}
-        {response.track?.title} — {response.track?.artist}
-      </div>
 
       {response.track?.previewUrl && (
         <button className="mood-result__button" onClick={togglePreview}>

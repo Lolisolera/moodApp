@@ -2,7 +2,14 @@
 @use "../mixins" as *;
 
 .mood-result {
-  margin-top: $space-sm;
+  /* Layout simplified: no fixed viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: $space-md 0 $space-lg 0;
+  margin: 0 auto;
   text-align: center;
   animation: fadeIn 0.4s ease-out;
 
@@ -16,13 +23,15 @@
     margin: $space-xs 0;
     font-size: 1.05rem;
     color: $text-color;
+    max-width: 80%;
+    line-height: 1.5;
   }
 
-  /* ==== Flashing Mood Text ==== */
+  /* Flashing Mood Text */
   &__mood {
-    color: $accent; // use your accent or primary colour
+    color: $accent;
     font-weight: 700;
-    animation: flashTwice 1s ease-in-out 1; // flashes twice
+    animation: flashTwice 1s ease-in-out 1;
   }
 
   &__button {
@@ -46,67 +55,62 @@
     }
   }
 
-  /* ==== Image Wrapper ==== */
+  /* Image Wrapper */
   &__image-wrapper {
-    margin-top: $space-lg;
-    margin-bottom: $space-lg;
+    margin-top: $space-md;
     display: flex;
     justify-content: center;
     border-radius: $radius-lg;
     transition: box-shadow 0.3s ease;
 
-    /* Triggers when the image finishes loading */
     &.flash {
       animation: doubleGoldFlash 1.8s ease-in-out;
     }
   }
 
-  /* ==== Image styles (landscape default) ==== */
+  /* Landscape images */
   &__image {
     width: 100%;
     max-width: 420px;
-    max-height: 55vh; // prevents overflow for tall images
+    max-height: 45vh; /* smaller for better fit */
     height: auto;
-
     border-radius: $radius-lg;
     display: block;
-
     object-fit: cover;
     object-position: center;
-
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.4s ease;
   }
 
-  /* ==== Portrait images ==== */
+  /* Portrait images */
   &__image[landscape="false"] {
     object-fit: contain;
-    width: 90vw;
-    max-width: 420px;
-    max-height: 55vh;
+    width: auto;
+    height: auto;
+    max-width: 55vw;
+    max-height: 40vh; /* 👈 ensures no scrolling */
+    margin: 0 auto;
+    display: block;
   }
 
-  /* ==== Medium breakpoint adjustments ==== */
+  /* Responsive adjustment */
   @include respond(md) {
     &__image {
       width: 70vw;
       max-width: 480px;
-      max-height: 70vh;
+      max-height: 50vh;
     }
 
     &__image[landscape="false"] {
-      width: 60vw;
-      max-width: 420px;
-      max-height: 60vh;
+      width: 50vw;
+      max-width: 380px;
+      max-height: 45vh;
     }
   }
 }
 
-/* ============================= */
-/*  Animations Section */
-/* ============================= */
+/* Animations */
 
-/* Fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -120,7 +124,6 @@
   }
 }
 
-/* ✨ Flash text twice */
 @keyframes flashTwice {
   0%, 100% {
     opacity: 1;
@@ -135,7 +138,6 @@
   }
 }
 
-/* ✨ Double gold flash animation (image) */
 @keyframes doubleGoldFlash {
   0%, 100% {
     box-shadow: none;
