@@ -44,7 +44,7 @@ export default function MoodResult({
         {response.mood}
       </span>
       ?<br />
-      Me too! let’s turn it into a moment 🎶
+      Me too! Let’s turn it into a moment 🎶
       <br />
       <br />
       “{response.track?.title}” by {response.track?.artist} is your emotional banger of the day 🎧
