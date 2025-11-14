@@ -125,7 +125,8 @@ h1 {
 
 .page {
   max-width: 600px;
-  margin: $space-sm auto 0 auto;
+  /* top margin = $space-sm, bottom margin = double ($space-md) */
+  margin: $space-sm auto $space-md auto;
   padding: $space-md $space-md $space-2xl $space-md;
   text-align: center;
 
@@ -148,7 +149,8 @@ h1 {
   @include respond(md) {
     max-width: 800px;
     padding: $space-lg $space-lg $space-2xl $space-lg;
-    margin: $space-sm auto 0 auto;
+    /*  keep same margin ratio on medium screens */
+    margin: $space-sm auto $space-md auto;
   }
 
   @include respond(lg) {
